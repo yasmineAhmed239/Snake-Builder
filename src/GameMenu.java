@@ -16,15 +16,15 @@ public class GameMenu extends JFrame {
         settings = new GameSettings();
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
-
+        
         setTitle("Snake Game");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(800, 600));
-
+        
         createMainMenu();
         createSettingsMenu();
         createCustomizationMenu();
-
+        
         add(mainPanel);
         pack();
         setLocationRelativeTo(null);
@@ -82,8 +82,8 @@ public class GameMenu extends JFrame {
         SpinnerNumberModel lengthModel = new SpinnerNumberModel(6, 3, 10, 1);
         JSpinner lengthSpinner = new JSpinner(lengthModel);
         styleSpinner(lengthSpinner);
-        lengthSpinner.addChangeListener(e ->
-                settings.setInitialLength((Integer)lengthSpinner.getValue()));
+        lengthSpinner.addChangeListener(e -> 
+            settings.setInitialLength((Integer)lengthSpinner.getValue()));
         lengthPanel.add(lengthLabel);
         lengthPanel.add(lengthSpinner);
         settingsPanel.add(lengthPanel);
@@ -92,16 +92,16 @@ public class GameMenu extends JFrame {
         JCheckBox gridLinesBox = new JCheckBox("Show Grid Lines");
         styleCheckBox(gridLinesBox);
         gridLinesBox.setSelected(settings.isGridLines());
-        gridLinesBox.addActionListener(e ->
-                settings.setGridLines(gridLinesBox.isSelected()));
+        gridLinesBox.addActionListener(e -> 
+            settings.setGridLines(gridLinesBox.isSelected()));
         settingsPanel.add(gridLinesBox);
 
         // Dark Mode
         JCheckBox darkModeBox = new JCheckBox("Dark Mode");
         styleCheckBox(darkModeBox);
         darkModeBox.setSelected(settings.isDarkMode());
-        darkModeBox.addActionListener(e ->
-                settings.setDarkMode(darkModeBox.isSelected()));
+        darkModeBox.addActionListener(e -> 
+            settings.setDarkMode(darkModeBox.isSelected()));
         settingsPanel.add(darkModeBox);
 
         // Back Button
@@ -124,18 +124,18 @@ public class GameMenu extends JFrame {
         customPanel.add(Box.createVerticalStrut(30));
 
         // Snake Customization
-        addCustomizationSection(customPanel, "Snake Color",
-                new String[]{"Green", "Blue", "Red", "Yellow", "Purple"});
-        addCustomizationSection(customPanel, "Snake Shape",
-                new String[]{"Rectangle", "Circle", "Triangle"});
+        addCustomizationSection(customPanel, "Snake Color", 
+            new String[]{"Green", "Blue", "Red", "Yellow", "Purple"});
+        addCustomizationSection(customPanel, "Snake Shape", 
+            new String[]{"Rectangle", "Circle", "Triangle"});
 
         // Food Customization
-        addCustomizationSection(customPanel, "Food Color",
-                new String[]{"Red", "Gold", "Blue", "Green"});
-        addCustomizationSection(customPanel, "Food Shape",
-                new String[]{"Circle", "Star", "Apple"});
-        addCustomizationSection(customPanel, "Food Type",
-                new String[]{"Regular", "Special", "Golden"});
+        addCustomizationSection(customPanel, "Food Color", 
+            new String[]{"Red", "Gold", "Blue", "Green"});
+        addCustomizationSection(customPanel, "Food Shape", 
+            new String[]{"Circle", "Star", "Apple"});
+        addCustomizationSection(customPanel, "Food Type", 
+            new String[]{"Regular", "Special", "Golden"});
 
         // Back Button
         JButton backButton = createStyledButton("Back to Main Menu");
@@ -146,12 +146,14 @@ public class GameMenu extends JFrame {
 
         mainPanel.add(customPanel, "Customization");
     }
+
     private void addCustomizationSection(JPanel panel, String title, String[] options) {
         JPanel sectionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         sectionPanel.setOpaque(false);
         JLabel label = createStyledLabel(title + ":", menuFont);
         JComboBox<String> comboBox = new JComboBox<>(options);
         styleComboBox(comboBox);
+        
         comboBox.addActionListener(e -> {
             String selected = (String) comboBox.getSelectedItem();
             switch(title) {
@@ -172,11 +174,13 @@ public class GameMenu extends JFrame {
                     break;
             }
         });
+
         sectionPanel.add(label);
         sectionPanel.add(comboBox);
         panel.add(sectionPanel);
         panel.add(Box.createVerticalStrut(10));
     }
+
     private Color getColorFromString(String color) {
         switch(color) {
             case "Blue": return Color.BLUE;
@@ -196,12 +200,14 @@ public class GameMenu extends JFrame {
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         return panel;
     }
+
     private JLabel createStyledLabel(String text, Font font) {
         JLabel label = new JLabel(text);
         label.setFont(font);
         label.setForeground(textColor);
         return label;
     }
+
     private JButton createStyledButton(String text) {
         JButton button = new JButton(text);
         button.setFont(menuFont);
@@ -212,6 +218,7 @@ public class GameMenu extends JFrame {
         button.setPreferredSize(new Dimension(200, 40));
         return button;
     }
+
     private void styleCheckBox(JCheckBox checkBox) {
         checkBox.setFont(menuFont);
         checkBox.setForeground(textColor);
@@ -251,6 +258,7 @@ public class GameMenu extends JFrame {
                 break;
         }
     }
+
     private void startGame() {
         this.dispose();
         new GameFrame(settings);

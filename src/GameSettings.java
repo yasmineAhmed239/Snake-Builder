@@ -47,12 +47,15 @@ public class GameSettings {
             default: return regularFoodScore;
         }
     }
+
     public Color getBackgroundColor() {
         return darkMode ? Color.BLACK : Color.WHITE;
     }
+
     public Color getGridColor() {
         return darkMode ? Color.DARK_GRAY : Color.LIGHT_GRAY;
     }
+
     public Color getTextColor() {
         return darkMode ? Color.WHITE : Color.BLACK;
     }
